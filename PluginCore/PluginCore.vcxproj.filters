@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="xSE">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="xSE\PluginCore">
+      <UniqueIdentifier>{a94a0412-b4e6-4b86-9591-3df8344df02d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\xSE\PluginCore\pch.cpp">
+      <Filter>xSE\PluginCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xSE\PluginCore.cpp">
+      <Filter>xSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xSE\PluginCore\CommonExtenderPlatform.cpp">
+      <Filter>xSE\PluginCore</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\pch.hpp">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore.h">
+      <Filter>xSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\Framework.hpp">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\ScriptExtenderDefinesBase.h">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\CommonExtenderPlatform.h">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChangeLog.md">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PluginCore.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
