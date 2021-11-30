@@ -48,6 +48,7 @@ namespace xSE
 			virtual kxf::String GetName() const = 0;
 			virtual kxf::String GetGameName() const = 0;
 			virtual kxf::String GetFullName() const = 0;
+			virtual kxf::Version GetVersion() const = 0;
 
 			virtual std::shared_ptr<kxf::IFileSystem> GetGameRootDirectory() const = 0;
 			virtual std::shared_ptr<kxf::IFileSystem> GetGameDataDirectory() const = 0;

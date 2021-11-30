@@ -1,6 +1,7 @@
 #include "pch.hpp"
 #include "PluginCore.h"
 #include "PluginCore/CommonExtenderPlatform.h"
+#include "PluginCore/ScriptExtenderDefinesBase.h"
 
 namespace
 {
@@ -39,10 +40,6 @@ namespace
 	#elif xSE_PLATFORM_F4SEVR
 
 	xSE::CommonExtenderPlatform g_Platform = xSE::PlatformType::F4SEVR;
-
-	#else
-
-	#error "Unsupported configuration"
 
 	#endif
 }

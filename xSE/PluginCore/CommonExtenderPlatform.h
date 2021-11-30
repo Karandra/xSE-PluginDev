@@ -40,6 +40,7 @@ namespace xSE
 			kxf::String GetName() const override;
 			kxf::String GetFullName() const override;
 			kxf::String GetGameName() const override;
+			kxf::Version GetVersion() const override;
 
 			std::shared_ptr<kxf::IFileSystem> GetGameRootDirectory() const override;
 			std::shared_ptr<kxf::IFileSystem> GetGameDataDirectory() const override;

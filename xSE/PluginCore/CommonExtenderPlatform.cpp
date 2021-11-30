@@ -1,5 +1,8 @@
 #include "pch.hpp"
 #include "CommonExtenderPlatform.h"
+#include "ScriptExtenderDefinesBase.h"
+#include "ScriptExtenderDefinesExtra.h"
+#include "ScriptExtenderInterfaceIncludes.h"
 
 #include <kxf/IO/IStream.h>
 #include <kxf/IO/StreamReaderWriter.h>
@@ -301,6 +304,15 @@ namespace xSE
 		};
 		return {};
 	}
+	kxf::Version CommonExtenderPlatform::GetVersion() const
+	{
+		auto FromInteger = [](uint32_t value)
+		{
+			return kxf::Version(kxf::DateTime().SetValue(value));
+		};
+
+		return FromInteger(xSE_PACKED_VERSION);
+	}
 
 	std::shared_ptr<kxf::IFileSystem> CommonExtenderPlatform::GetGameRootDirectory() const
 	{
@@ -367,8 +379,12 @@ namespace xSE
 	void CommonExtenderPlatform::LogString(kxf::String logString, size_t indent)
 	{
 		// Log to xSE target if supported
-		//auto logStringSE = kxf::Format("<{}>", GetName(), logString);
-		//_MESSAGE("%s", logStringSE.nc_str());
+		#if xSE_HAS_LOG
+		{
+			auto logStringSE = kxf::Format("<{}>", GetName(), logString);
+			xSE_LOG("%s", logStringSE.nc_str());
+		}
+		#endif
 
 		// Log to our own target
 		if (m_LogStream && !logString.IsEmptyOrWhitespace())

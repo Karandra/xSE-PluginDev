@@ -43,6 +43,12 @@
     <ClInclude Include="..\xSE\PluginCore\CommonExtenderPlatform.h">
       <Filter>xSE\PluginCore</Filter>
     </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\ScriptExtenderDefinesExtra.h">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\ScriptExtenderInterfaceIncludes.h">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ChangeLog.md">
