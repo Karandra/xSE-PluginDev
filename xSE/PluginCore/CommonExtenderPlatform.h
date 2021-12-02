@@ -1,8 +1,10 @@
 #pragma once
 #include "Framework.hpp"
 #include "PluginCore.h"
+#include "ScriptExtenderDefinesBase.h"
 
 #include <kxf/IO/IStream.h>
+#include <kxf/EventSystem/IEvtHandler.h>
 #include <kxf/FileSystem/IFileSystem.h>
 
 namespace xSE
@@ -13,7 +15,18 @@ namespace xSE
 			PlatformType m_PlatformType = PlatformType::None;
 			
 			std::shared_ptr<IExtenderPlugin> m_Plugin;
+			std::shared_ptr<kxf::IEvtHandler> m_EvtHandler;
 			std::unique_ptr<kxf::IOutputStream> m_LogStream;
+
+			// xSE info
+			kxf::String m_PluginName;
+			const void* m_SEInterface = nullptr;
+			uint32_t m_PluginHandle = std::numeric_limits<uint32_t>::max();
+			uint32_t m_SEVersion = 0;
+			uint32_t m_RuntimeVersion = 0;
+			uint32_t m_EditorVersion = 0;
+			bool m_QueryCalled = false;
+			bool m_LoadCalled = false;
 
 		private:
 			bool IsNull() const
@@ -51,6 +64,11 @@ namespace xSE
 			bool Initialize(std::shared_ptr<IExtenderPlugin> plugin) override;
 			void Terminate() override;
 
-			void LogString(kxf::String logString, size_t indent) override;
+			void LogString(const kxf::String& category, kxf::String logString, size_t indent) override;
+
+		public:
+			// CommonExtenderPlatform
+			bool OnQuery(const void* seInterface, void* pluginInfo);
+			bool OnLoad(const void* seInterface);
 	};
 }

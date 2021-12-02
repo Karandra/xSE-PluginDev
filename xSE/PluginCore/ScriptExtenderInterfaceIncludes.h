@@ -13,21 +13,6 @@
 #pragma comment(lib, "skse/Release/loader_common.lib")
 #pragma comment(lib, "common/Release VC9/common_vc9.lib")
 
-#elif xSE_PLATFORM_SKSE64
-
-#include <common/IPrefix.h>
-#include <skse64_common/skse_version.h>
-#include <skse64_common/Relocation.h>
-#include <skse64_common/SafeWrite.h>
-#include <skse64/PluginAPI.h>
-#include <skse64/GameAPI.h>
-#include <skse64/ObScript.h>
-
-#pragma comment(lib, "skse64/x64/Release_Lib_VC142/skse64_1_5_97.lib")
-#pragma comment(lib, "skse64/x64/Release_VC142/skse64_common.lib")
-#pragma comment(lib, "skse64/x64/Release/skse64_loader_common.lib")
-#pragma comment(lib, "skse64/x64_v142/Release_VC142/common_vc14.lib")
-
 #elif xSE_PLATFORM_SKSEVR
 
 #include <common/IPrefix.h>
@@ -42,6 +27,21 @@
 #pragma comment(lib, "skseVR/x64/Release_VC142/skse64_common.lib")
 #pragma comment(lib, "skseVR/x64/Release/skse64_loader_common.lib")
 #pragma comment(lib, "skseVR/x64_v142/Release_VC142/common_vc14.lib")
+
+#elif xSE_PLATFORM_SKSE64 || xSE_PLATFORM_SKSE64AE
+
+#include <common/IPrefix.h>
+#include <skse64_common/skse_version.h>
+#include <skse64_common/Relocation.h>
+#include <skse64_common/SafeWrite.h>
+#include <skse64/PluginAPI.h>
+#include <skse64/GameAPI.h>
+#include <skse64/ObScript.h>
+
+#pragma comment(lib, "skse64/x64/Release_Lib_VC142/skse64_1_5_97.lib")
+#pragma comment(lib, "skse64/x64/Release_VC142/skse64_common.lib")
+#pragma comment(lib, "skse64/x64/Release/skse64_loader_common.lib")
+#pragma comment(lib, "skse64/x64_v142/Release_VC142/common_vc14.lib")
 
 #elif xSE_PLATFORM_F4SE
 

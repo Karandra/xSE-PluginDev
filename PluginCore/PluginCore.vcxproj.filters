@@ -49,6 +49,9 @@
     <ClInclude Include="..\xSE\PluginCore\ScriptExtenderInterfaceIncludes.h">
       <Filter>xSE\PluginCore</Filter>
     </ClInclude>
+    <ClInclude Include="..\xSE\PluginCore\InitializationEvent.h">
+      <Filter>xSE\PluginCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ChangeLog.md">

@@ -25,6 +25,14 @@
       <Configuration>NVSE</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="SKSE64AE|Win32">
+      <Configuration>SKSE64AE</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SKSE64AE|x64">
+      <Configuration>SKSE64AE</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="SKSE64|Win32">
       <Configuration>SKSE64</Configuration>
       <Platform>Win32</Platform>
@@ -80,6 +88,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -122,6 +137,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -158,6 +180,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -174,6 +199,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|x64'" Label="PropertySheets">
@@ -199,6 +227,12 @@
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)Junk\$(Configuration) $(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration) $(Platform)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(ProjectDir)Junk\$(Configuration) $(Platform)\</IntDir>
     <OutDir>$(SolutionDir)Build\$(Configuration) $(Platform)\</OutDir>
@@ -240,6 +274,12 @@
     <OutDir>$(SolutionDir)Build\$(Configuration) $(Platform)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)Junk\$(Configuration) $(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration) $(Platform)\</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(ProjectDir)Junk\$(Configuration) $(Platform)\</IntDir>
@@ -267,6 +307,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|Win32'" Label="Vcpkg">
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'" Label="Vcpkg">
+    <VcpkgConfiguration>Release</VcpkgConfiguration>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|Win32'" Label="Vcpkg">
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
@@ -283,6 +326,9 @@
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|x64'" Label="Vcpkg">
+    <VcpkgConfiguration>Release</VcpkgConfiguration>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'" Label="Vcpkg">
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SKSEVR|x64'" Label="Vcpkg">
@@ -366,6 +412,39 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>xSE_LIBRARY;xSE_PLATFORM_$(Configuration);_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;KXF_STATIC_LIBRARY;WIN32;NDEBUG;GENERICDLLPRELOADER_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)xSE;$(SolutionDir)xSE\$(ProjectName);$(SolutionDir)xSE\ScriptExtender\$(Configuration);$(ProjectDir);$(SolutionDir)xSE\ScriptExtender\$(Configuration)\skse64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <SetChecksum>true</SetChecksum>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Bin\$(Configuration)"
+copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
@@ -521,8 +600,9 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -554,8 +634,9 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -587,8 +668,43 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <SetChecksum>true</SetChecksum>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "$(SolutionDir)Bin\$(Configuration)"
+copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>xSE_LIBRARY;xSE_PLATFORM_$(Configuration);_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;KXF_STATIC_LIBRARY;NDEBUG;GENERICDLLPRELOADER_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)xSE;$(SolutionDir)xSE\$(ProjectName);$(SolutionDir)xSE\ScriptExtender\$(Configuration);$(ProjectDir);$(SolutionDir)xSE\ScriptExtender\$(Configuration)\skse64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <ExceptionHandling>Sync</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -620,8 +736,9 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -653,8 +770,9 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -686,8 +804,9 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)</AdditionalLibraryDirectories>
-      <ModuleDefinitionFile>Exports\$(Configuration).def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)xSE\ScriptExtender\$(Configuration)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
       <SetChecksum>true</SetChecksum>
     </Link>
     <PostBuildEvent>
@@ -699,6 +818,7 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
     <ClInclude Include="..\xSE\PluginCore.h" />
     <ClInclude Include="..\xSE\PluginCore\CommonExtenderPlatform.h" />
     <ClInclude Include="..\xSE\PluginCore\Framework.hpp" />
+    <ClInclude Include="..\xSE\PluginCore\InitializationEvent.h" />
     <ClInclude Include="..\xSE\PluginCore\pch.hpp" />
     <ClInclude Include="..\xSE\PluginCore\ScriptExtenderDefinesBase.h" />
     <ClInclude Include="..\xSE\PluginCore\ScriptExtenderDefinesExtra.h" />
@@ -712,12 +832,14 @@ copy "$(TargetPath)" "$(SolutionDir)Bin\$(Configuration)\$(TargetName)$(TargetEx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='F4SE|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='F4SEVR|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE64|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSEVR|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='NVSE|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='F4SE|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='F4SEVR|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE64|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE64AE|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSEVR|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='NVSE|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SKSE|x64'">Create</PrecompiledHeader>

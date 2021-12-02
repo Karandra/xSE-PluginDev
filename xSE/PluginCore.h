@@ -17,8 +17,9 @@ namespace xSE
 		FOSE,
 		NVSE,
 		SKSE,
-		SKSE64,
 		SKSEVR,
+		SKSE64,
+		SKSE64AE,
 		F4SE,
 		F4SEVR
 	};
@@ -26,6 +27,14 @@ namespace xSE
 
 namespace xSE
 {
+	enum class ExtenderPluginFlag: uint32_t
+	{
+		None = 0,
+
+		VersionIndependent = kxf::FlagSetValue<ExtenderPluginFlag>(0),
+		AllowEditor = kxf::FlagSetValue<ExtenderPluginFlag>(1)
+	};
+
 	class xSE_API IExtenderPlugin: public kxf::RTTI::Interface<IExtenderPlugin>
 	{
 		KxRTTI_DeclareIID(IExtenderPlugin, {0xd9ad128e, 0x26a3, 0x428f, {0x85, 0xc1, 0x3e, 0x19, 0x25, 0xc0, 0x7e, 0x9d}});
@@ -34,6 +43,7 @@ namespace xSE
 			virtual kxf::String GetName() const = 0;
 			virtual kxf::String GetAuthor() const = 0;
 			virtual kxf::Version GetVersion() const = 0;
+			virtual kxf::FlagSet<ExtenderPluginFlag> GetFlags() const = 0;
 	};
 }
 
@@ -59,19 +69,37 @@ namespace xSE
 			virtual bool Initialize(std::shared_ptr<IExtenderPlugin> plugin) = 0;
 			virtual void Terminate() = 0;
 
-			virtual void LogString(kxf::String logString, size_t indent = 0) = 0;
+			virtual void LogString(const kxf::String& category, kxf::String logString, size_t indent = 0) = 0;
 
 		public:
 			template<size_t indent = 0>
 			void Log(const kxf::String& logString)
 			{
-				LogString(logString, indent);
+				LogString({}, logString, indent);
 			}
 
 			template<size_t indent = 0, class ...Args>
 			void Log(const kxf::String& format, Args&&... args)
 			{
-				LogString(kxf::Format(format, std::forward<Args>(args)...), indent);
+				LogString({}, kxf::Format(format, std::forward<Args>(args)...), indent);
+			}
+
+			template<size_t indent = 0>
+			void LogCategory(const kxf::String& category, const kxf::String& logString)
+			{
+				LogString(category, logString, indent);
+			}
+
+			template<size_t indent = 0>
+			void LogPlatform(const kxf::String& logString)
+			{
+				LogString(GetName(), logString, indent);
+			}
+
+			template<size_t indent = 0, class ...Args>
+			void LogPlatform(const kxf::String& format, Args&&... args)
+			{
+				LogString(GetName(), kxf::Format(format, std::forward<Args>(args)...), indent);
 			}
 	};
 }
@@ -79,4 +107,9 @@ namespace xSE
 namespace xSE
 {
 	xSE_API std::shared_ptr<IExtenderPlatform> GetPlatform();
+}
+
+namespace kxf
+{
+	KxFlagSet_Declare(xSE::ExtenderPluginFlag);
 }

@@ -1,8 +1,8 @@
 #include "pch.hpp"
 #include "CommonExtenderPlatform.h"
-#include "ScriptExtenderDefinesBase.h"
 #include "ScriptExtenderDefinesExtra.h"
 #include "ScriptExtenderInterfaceIncludes.h"
+#include "InitializationEvent.h"
 
 #include <kxf/IO/IStream.h>
 #include <kxf/IO/StreamReaderWriter.h>
@@ -35,8 +35,9 @@ namespace xSE
 				return "NVSE";
 			}
 			case PlatformType::SKSE:
-			case PlatformType::SKSE64:
 			case PlatformType::SKSEVR:
+			case PlatformType::SKSE64:
+			case PlatformType::SKSE64AE:
 			{
 				return "SKSE";
 			}
@@ -74,6 +75,7 @@ namespace xSE
 				return path / "Skyrim";
 			}
 			case PlatformType::SKSE64:
+			case PlatformType::SKSE64AE:
 			{
 				return path / "Skyrim Special Edition";
 			}
@@ -162,7 +164,7 @@ namespace xSE
 							};
 							return "";
 						};
-						m_Platform.Log("<Framework:{}> {}", TranslateLevel(level), message);
+						m_Platform.LogCategory(kxf::Format("Framework:{}", TranslateLevel(level)), message);
 					}
 
 				public:
@@ -232,13 +234,17 @@ namespace xSE
 			{
 				return "SKSE";
 			}
+			case PlatformType::SKSEVR:
+			{
+				return "SKSEVR";
+			}
 			case PlatformType::SKSE64:
 			{
 				return "SKSE64";
 			}
-			case PlatformType::SKSEVR:
+			case PlatformType::SKSE64AE:
 			{
-				return "SKSEVR";
+				return "SKSE64AE";
 			}
 			case PlatformType::F4SE:
 			{
@@ -285,13 +291,17 @@ namespace xSE
 			{
 				return "Skyrim";
 			}
-			case PlatformType::SKSE64:
-			{
-				return "SkyrimSE";
-			}
 			case PlatformType::SKSEVR:
 			{
-				return "SkyrimVR";
+				return "Skyrim VR";
+			}
+			case PlatformType::SKSE64:
+			{
+				return "Skyrim Special Edition";
+			}
+			case PlatformType::SKSE64AE:
+			{
+				return "Skyrim Anniversary Edition";
 			}
 			case PlatformType::F4SE:
 			{
@@ -360,11 +370,15 @@ namespace xSE
 		if (!m_Plugin)
 		{
 			m_Plugin = std::move(plugin);
-			InitializeLogger();
-					
-			// Register modules
-			Log("Initializing framework");
-			return InitializeModules();
+			if (m_Plugin->QueryInterface(m_EvtHandler))
+			{
+				InitializeLogger();
+
+				// Register modules
+				Log("Initializing framework");
+				return InitializeModules();
+			}
+			return false;
 		}
 		return true;
 	}
@@ -376,12 +390,13 @@ namespace xSE
 		}
 	}
 
-	void CommonExtenderPlatform::LogString(kxf::String logString, size_t indent)
+	void CommonExtenderPlatform::LogString(const kxf::String& category, kxf::String logString, size_t indent)
 	{
-		// Log to xSE target if supported
+		// Log to xSE target if supported and compatible
 		#if xSE_HAS_LOG
+		if (m_SEVersion == xSE_PACKED_VERSION)
 		{
-			auto logStringSE = kxf::Format("<{}>", GetName(), logString);
+			auto logStringSE = kxf::Format("<{}>", m_Plugin ? m_Plugin->GetName() : "xSE PluginCore", logString);
 			xSE_LOG("%s", logStringSE.nc_str());
 		}
 		#endif
@@ -390,6 +405,14 @@ namespace xSE
 		if (m_LogStream && !logString.IsEmptyOrWhitespace())
 		{
 			kxf::IO::OutputStreamWriter writer(*m_LogStream);
+
+			// Add category
+			if (!category.IsEmpty())
+			{
+				logString.Prepend("> ");
+				logString.Prepend(category);
+				logString.Prepend('<');
+			}
 
 			const size_t indentChars = indent * 4;
 			if (indentChars != 0)
@@ -408,11 +431,103 @@ namespace xSE
 			{
 				logString.Prepend(timeStampFormatted);
 			}
-					
 
 			// Write and flush
 			writer.WriteStringUTF8(logString.Append('\n'));
 			m_LogStream->Flush();
+		}
+	}
+
+	// CommonExtenderPlatform
+	bool CommonExtenderPlatform::OnQuery(const void* seInterface, void* pluginInfo)
+	{
+		LogPlatform("[" _CRT_STRINGIZE(xSE_QUERYFUNCTION) "] On query plugin");
+		if (m_QueryCalled)
+		{
+			LogPlatform<1>("OnQuery has already been called");
+			return false;
+		}
+		m_QueryCalled = true;
+
+		if (!m_Plugin)
+		{
+			LogPlatform<1>("Plugin is not initialized");
+			return false;
+		}
+
+		if (seInterface)
+		{
+			LogPlatform<1>("Processing xSE interface");
+
+			auto se = static_cast<const xSE_Interface*>(seInterface);
+			m_SEVersion = xSE_INTERFACE_VERSION(se);
+			m_SEInterface = seInterface;
+			LogPlatform<1>("xSE runtime version: {}; compiled version: {}", m_SEVersion, static_cast<decltype(m_SEVersion)>(xSE_PACKED_VERSION));
+
+			if (auto info = static_cast<PluginInfo*>(pluginInfo))
+			{
+				LogPlatform<1>("Processing plugin info");
+
+				m_PluginName = m_Plugin->GetName();
+				info->infoVersion = PluginInfo::kInfoVersion;
+				info->name = m_PluginName.nc_str();
+				info->version = static_cast<uint32_t>(m_Plugin->GetVersion().ToInteger());
+			}
+
+			auto flags = m_Plugin->GetFlags();
+			LogPlatform<1>("Preparing to load plugin");
+
+			if (m_SEVersion == xSE_PACKED_VERSION || flags.Contains(ExtenderPluginFlag::VersionIndependent))
+			{
+				if (flags.Contains(ExtenderPluginFlag::VersionIndependent))
+				{
+					LogPlatform<2>("The plugin reported itself as a version independent");
+				}
+				if (se->isEditor && !flags.Contains(ExtenderPluginFlag::AllowEditor))
+				{
+					LogPlatform<2>("Loading in editor mode disabled");
+					return false;
+				}
+
+				m_PluginHandle = se->GetPluginHandle();
+				if (!m_EvtHandler->ProcessEvent(InitializationEvent::EvtQuery))
+				{
+					LogPlatform<2>("The plugin didn't process the query event");
+				}
+				return true;
+			}
+			else
+			{
+				LogPlatform<1>("Runtime xSE version doesn't match the compiled version");
+			}
+		}
+		return false;
+	}
+	bool CommonExtenderPlatform::OnLoad(const void* seInterface)
+	{
+		#if xSE_PLATFORM_SKSE64AE
+		if (!m_QueryCalled && !OnQuery(seInterface, nullptr))
+		{
+			return false;
+		}
+		#endif
+
+		LogPlatform("[" _CRT_STRINGIZE(xSE_LOADFUNCTION) "] On load plugin");
+		if (m_LoadCalled)
+		{
+			LogPlatform<1>("OnLoad has already been called");
+			return false;
+		}
+		m_LoadCalled = true;
+		
+		if (m_EvtHandler->ProcessEvent(InitializationEvent::EvtLoad))
+		{
+			return true;
+		}
+		else
+		{
+			LogPlatform<1>("The plugin didn't process the load event");
+			return false;
 		}
 	}
 }

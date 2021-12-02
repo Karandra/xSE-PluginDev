@@ -4,7 +4,6 @@
 // Main defines
 //////////////////////////////////////////////////////////////////////////
 
-
 #if xSE_PLATFORM_MWSE
 
 #define xSE_NAME MWSE
@@ -45,17 +44,25 @@
 #define xSE_LOADFUNCTION SKSEPlugin_Load
 #define xSE_QUERYFUNCTION SKSEPlugin_Query
 
-#elif xSE_PLATFORM_SKSE64
+#elif xSE_PLATFORM_SKSEVR
 
-#define xSE_NAME SKSE64
+#define xSE_NAME SKSEVR
 #define xSE_PACKED_VERSION PACKED_SKSE_VERSION
 
 #define xSE_LOADFUNCTION SKSEPlugin_Load
 #define xSE_QUERYFUNCTION SKSEPlugin_Query
 
-#elif xSE_PLATFORM_SKSEVR
+#elif xSE_PLATFORM_SKSE64
 
-#define xSE_NAME SKSEVR
+#define xSE_NAME SKSE64AE
+#define xSE_PACKED_VERSION PACKED_SKSE_VERSION
+
+#define xSE_LOADFUNCTION SKSEPlugin_Load
+#define xSE_QUERYFUNCTION SKSEPlugin_Query
+
+#elif xSE_PLATFORM_SKSE64AE
+
+#define xSE_NAME SKSE64AE
 #define xSE_PACKED_VERSION PACKED_SKSE_VERSION
 
 #define xSE_LOADFUNCTION SKSEPlugin_Load
@@ -74,6 +81,9 @@
 #error "Unsupported configuration"
 
 #endif
+
+#define xSE_QUERYFUNCTION_SIGNATURE bool __cdecl xSE_QUERYFUNCTION
+#define xSE_LOADFUNCTION_SIGNATURE bool __cdecl xSE_LOADFUNCTION
 
 #define xSE_NAME_A _CRT_STRINGIZE(xSE_NAME)
 #define xSE_NAME_W _CRT_WIDE(xSE_NAME_A)
